@@ -7,4 +7,35 @@
 Simple library to manage database migrations in-memory:
 
 - migration must have a name
-- migrations are applied in order by name
+- migrations are applied in order, by name (using String.localeCompare to order)
+
+```
+npm i migrations-engine --save
+```
+
+```ts
+import { up, down } from 'migrations-engine';
+
+const all = [
+  // these are all available migrations
+  {
+    name: 'A',
+  },
+  {
+    name: 'B',
+  },
+];
+
+const applied = [
+  // these are all applied migrations so far
+  {
+    name: 'A',
+  },
+];
+
+const migrationsToApply = up(applied, all); // [{ name: 'B' }]
+
+// apply migrations
+```
+
+The storage and applying of migrations is up to you.
